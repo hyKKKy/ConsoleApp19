@@ -17,10 +17,10 @@
             Task<int> maxTask = Task.Run(() => numbers.AsParallel().Max());
             Task<List<int>> evenTask = Task.Run(() => numbers.AsParallel().Where(x => x % 2 == 0).ToList());
             Task<List<int>> oddTask = Task.Run(() => numbers.AsParallel().Where(x => x % 2 != 0).ToList());
-            Task<List<int>> uniqueTask = Task.Run(() =>);
+            Task<List<int>> uniqueTask = Task.Run(() =>numbers.AsParallel().Distinct().ToList());
 
             await Task.WhenAll(sumTask, minTask, maxTask, evenTask, oddTask);
-            Console.WriteLine($"Sum - {await sumTask}\n Min - {await minTask}\n Max - {await maxTask}\n even - {string.Join(", ", await evenTask)}\n odd - {string.Join(", ", await oddTask)}");
+            Console.WriteLine($"Sum - {await sumTask}\n Min - {await minTask}\n Max - {await maxTask}\n even - {string.Join(", ", await evenTask)}\n odd - {string.Join(", ", await oddTask)}\n unique - {string.Join(", ", await uniqueTask)}");
 
         }
         static void fillFiles(string fileName)
