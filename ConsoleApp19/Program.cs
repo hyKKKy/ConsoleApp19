@@ -20,11 +20,11 @@ namespace ConsoleApp19
             Task<List<int>> evenTask = Task.Run(() => numbers.AsParallel().Where(x => x % 2 == 0).ToList());
             Task<List<int>> oddTask = Task.Run(() => numbers.AsParallel().Where(x => x % 2 != 0).ToList());
             Task<List<int>> uniqueTask = Task.Run(() => numbers.AsParallel().Distinct().ToList());
-            findLongestContinuing(numbers);
-            findLongestPositiveLine(numbers);
-
+            //findLongestContinuing(numbers);
+            //findLongestPositiveLine(numbers);
+            multytable(5, 8);
             await Task.WhenAll(sumTask, minTask, maxTask, evenTask, oddTask);
-            Console.WriteLine($"Sum - {await sumTask}\n Min - {await minTask}\n Max - {await maxTask}\n even - {string.Join(", ", await evenTask)}\n odd - {string.Join(", ", await oddTask)}\n unique - {string.Join(", ", await uniqueTask)}"); 
+            //Console.WriteLine($"Sum - {await sumTask}\n Min - {await minTask}\n Max - {await maxTask}\n even - {string.Join(", ", await evenTask)}\n odd - {string.Join(", ", await oddTask)}\n unique - {string.Join(", ", await uniqueTask)}"); 
         }
         static void fillFiles(string fileName)
         {
@@ -65,7 +65,6 @@ namespace ConsoleApp19
 
             Console.WriteLine($"Continuing: {string.Join(" ", longestList)} Length: {longestList.Count}");
         }
-
         static void findLongestPositiveLine(List<int> numbers)
         {
             var longestLine = new List<int>();
@@ -88,6 +87,18 @@ namespace ConsoleApp19
             }
 
             Console.WriteLine($"Continuing of positive numbers: {string.Join(" ", longestLine)} Length: {longestLine.Count}");
+        }
+        static void multytable(int min, int max)
+        {
+            Parallel.For(min, max + 1, i =>
+            {
+                for (int j = 1; j < 11; j++)
+                {
+                    int result = i * j;
+                    Console.WriteLine($"{i} * {j} = {result}");
+                }
+                Console.WriteLine("----------------------------");
+            });
         }
     }
 }
